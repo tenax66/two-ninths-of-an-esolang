@@ -1,0 +1,8 @@
+{
+  "name": "two-ninths-of-an-esolang",
+  "devDependencies": {
+    "@types/node": "^20.3.3"
+  },
+  "author": "tenax66",
+  "license": "MIT"
+}
