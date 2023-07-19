@@ -1,3 +1,5 @@
+import { Fraction, fraction } from 'mathjs';
+
 class Stack<T> {
   _store: T[] = [];
   push(val: T) {
@@ -9,7 +11,7 @@ class Stack<T> {
 }
 
 class Interpreter {
-  stack = new Stack<number>();
+  stack = new Stack<Fraction>();
 
   run(input: string, arg?: string): void {
     const lines: string[] = input.split(/\r\n|\n/);
@@ -33,6 +35,8 @@ class Interpreter {
 
       for (let command of code) {
         switch (command) {
+          case '%':
+            this.stack.push(fraction(2, 9));
           case '@':
             // Print "Hello, World!"
             console.log('Hello, World!');
