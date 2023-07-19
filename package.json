@@ -4,5 +4,8 @@
     "@types/node": "^20.3.3"
   },
   "author": "tenax66",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mathjs": "^11.8.2"
+  }
 }
