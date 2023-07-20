@@ -10,12 +10,10 @@ class Stack<T> {
   }
 }
 
-const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
 class Interpreter {
   stack = new Stack<math.Fraction>();
 
-  run(input: string, arg?: string): void {
+  async run(input: string, arg?: string): Promise<void> {
     const lines: string[] = input.split(/\r\n|\n/);
 
     for (let i = 0; i < lines.length; i++) {
@@ -82,7 +80,7 @@ class Interpreter {
           }
           case '#':
             // Wait 3.5 seconds.
-            sleep(3500);
+            await new Promise((res) => setTimeout(res, 3500));
             break;
           case '‮': {
             /*
