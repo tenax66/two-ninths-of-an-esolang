@@ -39,12 +39,14 @@ class Interpreter {
         switch (command) {
           case '%':
             this.stack.push(math.fraction(2, 9));
+            break;
           case '꧅': {
             const value = this.stack.pop();
             if (value == null) {
               throw new Error('The stack is empty');
             }
             this.stack.push(math.multiply(value, math.fraction(1, 8)));
+            break;
           }
           case '4': {
             const value = this.stack.pop();
@@ -52,6 +54,7 @@ class Interpreter {
               throw new Error('The stack is empty');
             }
             this.stack.push(math.multiply(value, 24));
+            break;
           }
           case 'Q': {
             const value1 = this.stack.pop();
@@ -60,10 +63,12 @@ class Interpreter {
               throw new Error('The stack is empty');
             }
             this.stack.push(math.subtract(math.add(value1, value2), 4));
+            break;
           }
           case '@':
             // Print "Hello, World!"
             console.log('Hello, World!');
+            break;
           case '6': {
             const value = math.number(this.stack.pop() as math.Fraction);
             if (value == null) {
@@ -73,10 +78,12 @@ class Interpreter {
               throw new Error('Popped value is not an integer');
             }
             console.log(String.fromCodePoint(value));
+            break;
           }
           case '#':
             // Wait 3.5 seconds.
             sleep(3500);
+            break;
           default:
             break;
         }
