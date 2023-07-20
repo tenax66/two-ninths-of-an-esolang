@@ -1,4 +1,4 @@
-import math, { MathJSON } from 'mathjs';
+import math from 'mathjs';
 
 class Stack<T> {
   _store: T[] = [];
