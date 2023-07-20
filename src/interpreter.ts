@@ -84,7 +84,7 @@ class Interpreter {
             // Wait 3.5 seconds.
             sleep(3500);
             break;
-          case '‮':
+          case '‮': {
             /*
              * Reverses the order of the top three stack elements,
              * then pops a stack element and jumps to the nth line, where n is the popped element.
@@ -102,6 +102,7 @@ class Interpreter {
 
             i = math.number(third);
             break;
+          }
           default:
             break;
         }
