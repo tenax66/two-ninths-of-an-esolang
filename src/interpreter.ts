@@ -84,6 +84,24 @@ class Interpreter {
             // Wait 3.5 seconds.
             sleep(3500);
             break;
+          case '‮':
+            /*
+             * Reverses the order of the top three stack elements,
+             * then pops a stack element and jumps to the nth line, where n is the popped element.
+             */
+            const first = this.stack.pop();
+            const second = this.stack.pop();
+            const third = this.stack.pop();
+
+            if (first == null || second == null || third == null) {
+              throw new Error('The number of elements in the stack is less than 3');
+            }
+
+            this.stack.push(first);
+            this.stack.push(second);
+
+            i = math.number(third);
+            break;
           default:
             break;
         }
