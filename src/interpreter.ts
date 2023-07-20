@@ -62,6 +62,16 @@ class Interpreter {
           case '@':
             // Print "Hello, World!"
             console.log('Hello, World!');
+          case '6': {
+            const value = math.number(this.stack.pop() as math.Fraction);
+            if (value == null) {
+              throw new Error('The stack is empty');
+            }
+            if (!Number.isInteger(value)) {
+              throw new Error('Popped value is not an integer');
+            }
+            console.log(String.fromCodePoint(value));
+          }
           default:
             break;
         }
