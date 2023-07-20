@@ -1,4 +1,4 @@
-import math from 'mathjs';
+import math, { MathJSON } from 'mathjs';
 
 class Stack<T> {
   _store: T[] = [];
@@ -13,7 +13,7 @@ class Stack<T> {
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 class Interpreter {
-  stack = new Stack<math.MathType>();
+  stack = new Stack<math.Fraction>();
 
   run(input: string, arg?: string): void {
     const lines: string[] = input.split(/\r\n|\n/);
@@ -45,7 +45,7 @@ class Interpreter {
             if (value == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(math.multiply(value, math.fraction(1, 8)));
+            this.stack.push(math.multiply(value, math.fraction(1, 8)) as math.Fraction);
             break;
           }
           case '4': {
@@ -53,7 +53,7 @@ class Interpreter {
             if (value == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(math.multiply(value, 24));
+            this.stack.push(math.multiply(value, 24) as math.Fraction);
             break;
           }
           case 'Q': {
@@ -62,7 +62,7 @@ class Interpreter {
             if (value1 == null || value2 == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(math.subtract(math.add(value1, value2), 4));
+            this.stack.push(math.subtract(math.add(value1, value2), 4) as math.Fraction);
             break;
           }
           case '@':
@@ -70,7 +70,7 @@ class Interpreter {
             console.log('Hello, World!');
             break;
           case '6': {
-            const value = math.number(this.stack.pop() as math.Fraction);
+            const value = math.number(this.stack.pop());
             if (value == null) {
               throw new Error('The stack is empty');
             }
