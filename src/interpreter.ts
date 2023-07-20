@@ -103,6 +103,18 @@ class Interpreter {
             i = math.number(third);
             break;
           }
+          case '÷': {
+            const first = math.number(this.stack.pop());
+            const second = math.number(this.stack.pop());
+            if (first == null || second == null) {
+              throw new Error('The number of elements in the stack is less than 2');
+            }
+            if (!Number.isInteger(first) || Number.isInteger(second)) {
+              throw new Error('Popped values are not integers');
+            }
+            this.stack.push(math.fraction((first % second) ** 2, 1));
+            break;
+          }
           default:
             break;
         }
