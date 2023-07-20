@@ -123,4 +123,3 @@ class Interpreter {
 
 const interpreter = new Interpreter();
 interpreter.run('4Q64Q@##############');
-console.log('interpreter executed successfully');
