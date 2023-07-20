@@ -1,4 +1,4 @@
-import { MathType, fraction, multiply } from 'mathjs';
+import { MathType, fraction, add, subtract, multiply } from 'mathjs';
 
 class Stack<T> {
   _store: T[] = [];
@@ -37,12 +37,28 @@ class Interpreter {
         switch (command) {
           case '%':
             this.stack.push(fraction(2, 9));
-          case '꧅':
+          case '꧅': {
             const value = this.stack.pop();
             if (value == null) {
               throw new Error('The stack is empty');
             }
             this.stack.push(multiply(value, fraction(1, 8)));
+          }
+          case '4': {
+            const value = this.stack.pop();
+            if (value == null) {
+              throw new Error('The stack is empty');
+            }
+            this.stack.push(multiply(value, 24));
+          }
+          case 'Q': {
+            const value1 = this.stack.pop();
+            const value2 = this.stack.pop();
+            if (value1 == null || value2 == null) {
+              throw new Error('The stack is empty');
+            }
+            this.stack.push(subtract(add(value1, value2), 4));
+          }
           case '@':
             // Print "Hello, World!"
             console.log('Hello, World!');
