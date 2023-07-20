@@ -1,4 +1,4 @@
-import { MathType, fraction, add, subtract, multiply } from 'mathjs';
+import math from 'mathjs';
 
 class Stack<T> {
   _store: T[] = [];
@@ -11,7 +11,7 @@ class Stack<T> {
 }
 
 class Interpreter {
-  stack = new Stack<MathType>();
+  stack = new Stack<math.MathType>();
 
   run(input: string, arg?: string): void {
     const lines: string[] = input.split(/\r\n|\n/);
@@ -36,20 +36,20 @@ class Interpreter {
       for (let command of code) {
         switch (command) {
           case '%':
-            this.stack.push(fraction(2, 9));
+            this.stack.push(math.fraction(2, 9));
           case '꧅': {
             const value = this.stack.pop();
             if (value == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(multiply(value, fraction(1, 8)));
+            this.stack.push(math.multiply(value, math.fraction(1, 8)));
           }
           case '4': {
             const value = this.stack.pop();
             if (value == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(multiply(value, 24));
+            this.stack.push(math.multiply(value, 24));
           }
           case 'Q': {
             const value1 = this.stack.pop();
@@ -57,7 +57,7 @@ class Interpreter {
             if (value1 == null || value2 == null) {
               throw new Error('The stack is empty');
             }
-            this.stack.push(subtract(add(value1, value2), 4));
+            this.stack.push(math.subtract(math.add(value1, value2), 4));
           }
           case '@':
             // Print "Hello, World!"
