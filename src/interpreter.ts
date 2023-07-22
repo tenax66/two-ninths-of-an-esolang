@@ -34,90 +34,98 @@ class Interpreter {
       const code = line.slice(6);
 
       for (let command of code) {
-        switch (command) {
-          case '%':
-            this.stack.push(math.fraction(2, 9));
-            break;
-          case '꧅': {
-            const value = this.stack.pop();
-            if (value == null) {
-              throw new Error('The stack is empty');
-            }
-            this.stack.push(math.multiply(value, math.fraction(1, 8)) as math.Fraction);
-            break;
-          }
-          case '4': {
-            const value = this.stack.pop();
-            if (value == null) {
-              throw new Error('The stack is empty');
-            }
-            this.stack.push(math.multiply(value, 24) as math.Fraction);
-            break;
-          }
-          case 'Q': {
-            const value1 = this.stack.pop();
-            const value2 = this.stack.pop();
-            if (value1 == null || value2 == null) {
-              throw new Error('The number of elements in the stack is less than 2');
-            }
-            this.stack.push(math.subtract(math.add(value1, value2), 4) as math.Fraction);
-            break;
-          }
-          case '@':
-            // Print "Hello, World!"
-            console.log('Hello, World!');
-            break;
-          case '6': {
-            const value = math.number(this.stack.pop());
-            if (value == null) {
-              throw new Error('The stack is empty');
-            }
-            if (!Number.isInteger(value)) {
-              throw new Error('Popped value is not an integer');
-            }
-            console.log(String.fromCodePoint(value));
-            break;
-          }
-          case '#':
-            // Wait 3.5 seconds.
-            await new Promise((res) => setTimeout(res, 3500));
-            break;
-          case '‮': {
-            /*
-             * Reverses the order of the top three stack elements,
-             * then pops a stack element and jumps to the nth line, where n is the popped element.
-             */
-            const first = this.stack.pop();
-            const second = this.stack.pop();
-            const third = this.stack.pop();
-
-            if (first == null || second == null || third == null) {
-              throw new Error('The number of elements in the stack is less than 3');
-            }
-
-            this.stack.push(first);
-            this.stack.push(second);
-
-            i = math.number(third);
-            break;
-          }
-          case '÷': {
-            const first = math.number(this.stack.pop());
-            const second = math.number(this.stack.pop());
-            if (first == null || second == null) {
-              throw new Error('The number of elements in the stack is less than 2');
-            }
-            if (!Number.isInteger(first) || Number.isInteger(second)) {
-              throw new Error('Popped values are not integers');
-            }
-            this.stack.push(math.fraction((first % second) ** 2, 1));
-            break;
-          }
-          default:
-            break;
+        if (command === '#') {
+          // Wait 3.5 seconds.
+          await new Promise((res) => setTimeout(res, 3500));
+        } else {
+          i = this.processCode(command, i);
         }
       }
     }
+  }
+
+  private processCode(command: string, index: number): number {
+    switch (command) {
+      case '%':
+        this.stack.push(math.fraction(2, 9));
+        break;
+      case '꧅': {
+        const value = this.stack.pop();
+        if (value == null) {
+          throw new Error('The stack is empty');
+        }
+        this.stack.push(math.multiply(value, math.fraction(1, 8)) as math.Fraction);
+        break;
+      }
+      case '4': {
+        const value = this.stack.pop();
+        if (value == null) {
+          throw new Error('The stack is empty');
+        }
+        this.stack.push(math.multiply(value, 24) as math.Fraction);
+        break;
+      }
+      case 'Q': {
+        const value1 = this.stack.pop();
+        const value2 = this.stack.pop();
+        if (value1 == null || value2 == null) {
+          throw new Error('The number of elements in the stack is less than 2');
+        }
+        this.stack.push(math.subtract(math.add(value1, value2), 4) as math.Fraction);
+        break;
+      }
+      case '@':
+        // Print "Hello, World!"
+        console.log('Hello, World!');
+        break;
+      case '6': {
+        const value = math.number(this.stack.pop());
+        if (value == null) {
+          throw new Error('The stack is empty');
+        }
+        if (!Number.isInteger(value)) {
+          throw new Error('Popped value is not an integer');
+        }
+        console.log(String.fromCodePoint(value));
+        break;
+      }
+      case '#':
+
+      case '‮': {
+        /*
+         * Reverses the order of the top three stack elements,
+         * then pops a stack element and jumps to the nth line, where n is the popped element.
+         */
+        const first = this.stack.pop();
+        const second = this.stack.pop();
+        const third = this.stack.pop();
+
+        if (first == null || second == null || third == null) {
+          throw new Error('The number of elements in the stack is less than 3');
+        }
+
+        this.stack.push(first);
+        this.stack.push(second);
+
+        index = math.number(third);
+        break;
+      }
+      case '÷': {
+        const first = math.number(this.stack.pop());
+        const second = math.number(this.stack.pop());
+        if (first == null || second == null) {
+          throw new Error('The number of elements in the stack is less than 2');
+        }
+        if (!Number.isInteger(first) || Number.isInteger(second)) {
+          throw new Error('Popped values are not integers');
+        }
+        this.stack.push(math.fraction((first % second) ** 2, 1));
+        break;
+      }
+      default:
+        break;
+    }
+    return index;
   }
 }
 
