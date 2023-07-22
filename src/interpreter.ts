@@ -58,7 +58,7 @@ class Interpreter {
             const value1 = this.stack.pop();
             const value2 = this.stack.pop();
             if (value1 == null || value2 == null) {
-              throw new Error('The stack is empty');
+              throw new Error('The number of elements in the stack is less than 2');
             }
             this.stack.push(math.subtract(math.add(value1, value2), 4) as math.Fraction);
             break;
