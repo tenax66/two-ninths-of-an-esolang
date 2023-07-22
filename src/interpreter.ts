@@ -89,7 +89,6 @@ class Interpreter {
         console.log(String.fromCodePoint(value));
         break;
       }
-      case '#':
 
       case '‮': {
         /*
