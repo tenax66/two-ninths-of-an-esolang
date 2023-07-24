@@ -10,7 +10,7 @@ class Stack<T> {
   }
 }
 
-class Interpreter {
+export class Interpreter {
   stack = new Stack<math.Fraction>();
 
   async run(input: string, arg?: string): Promise<void> {
@@ -127,6 +127,3 @@ class Interpreter {
     return index;
   }
 }
-
-const interpreter = new Interpreter();
-interpreter.run('4Q64Q@##############');
