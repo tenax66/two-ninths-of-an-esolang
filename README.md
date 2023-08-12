@@ -1,8 +1,11 @@
 # two-ninths-of-an-esolang
+
 ## Original Article
+
 [2/9 of an esolang](https://esolangs.org/wiki/2/9_of_an_esolang) by Cortex.
 
 ## Commands
+
 |Character|What it does|
 |----|----|
 |%|Push the number 2/9 onto the stack.|
@@ -16,6 +19,7 @@
 |÷|Take the top stack element modulo the second stack element, then square the result.|
 
 ## Examples
+
 ```typescript
   // print "Hello, World!" and wait 49 seconds
   new Interpreter().run('4Q64Q@##############');
